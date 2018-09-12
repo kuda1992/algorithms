@@ -1,5 +1,7 @@
 package com.pluralsight.algo.utils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Helpers {
@@ -10,6 +12,15 @@ public class Helpers {
         for (int i = 0; i < length; i++) {
             final Random random = new Random();
             integers[i] = random.nextInt(upperLimit) + lowerLimit;
+        }
+        return integers;
+    }
+
+    public static List<Integer> randomListIntegers(int length, int lowerLimit, int upperLimit) {
+        List<Integer> integers = new ArrayList<>();
+        for (int i = 0; i < length; i++) {
+            final Random random = new Random();
+            integers.add(random.nextInt(upperLimit) + lowerLimit);
         }
         return integers;
     }

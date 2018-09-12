@@ -15,7 +15,6 @@ class InsertionSortTest {
         final Comparable[] numbers = {28, 2, 10, 12, 3, 1, 7};
         InsertionSort.sort(numbers);
 
-
         assertEquals(numbers[0], 1);
         assertEquals(numbers[1], 2);
         assertEquals(numbers[2], 3);

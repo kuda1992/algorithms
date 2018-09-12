@@ -17,8 +17,6 @@ public class SelectionSort {
         int count = 0;
         int notLessThanCurrent = 0;
         Comparable[] newArray = a;
-
-
         System.out.println("The length of the array is " + length);
 
         // go through the number of elements in the array
