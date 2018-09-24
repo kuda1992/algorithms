@@ -7,6 +7,16 @@ import java.util.List;
 public class Bag<T> implements Iterable<T> {
     private List<T> collection = new ArrayList();
 
+    public Bag() {
+
+    }
+
+    public Bag(T[] items) {
+        for (T item : items) {
+            collection.add(item);
+        }
+    }
+
     public void add(T item) {
         collection.add(item);
     }

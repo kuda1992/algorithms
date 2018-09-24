@@ -12,10 +12,14 @@ public class Stack<T> implements Iterable<T> {
     }
 
     public T pop() {
-        return collection.remove(this.size() - 1);
+        return _pop(this.size() - 1);
     }
 
     public T pop(int index) {
+        return _pop(index);
+    }
+
+    public T _pop(int index) {
         return collection.remove(index);
     }
 

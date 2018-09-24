@@ -2,13 +2,16 @@ package com.pluralsight.algo.dataStuctures;
 
 import java.util.*;
 
-public class Queue<T> {
+public class Queue<T> implements Iterable<T> {
     private T[] collection;
-    private int total = 1;
-    private int next = 0;
-    private int first = 0;
+    private int total;
+    private int next;
+    private int first;
 
     public Queue() {
+        total = 1;
+        next = 0;
+        first = 0;
         collection = (T[]) new Object[1];
     }
 
@@ -25,7 +28,6 @@ public class Queue<T> {
                     tmp[i - 1] = collection[i];
                 } else {
                     tmp[i] = collection[i];
-
                 }
             } else {
                 wasAPreviousNull = true;
@@ -50,19 +52,11 @@ public class Queue<T> {
     }
 
     public T dequeue() {
-
-        if (total == 0) {
-            throw new NoSuchElementException();
-        }
-        T item = collection[first];
-        collection[first] = null;
-
-        resize(total - 1);
-
-        return item;
+        return _dequeue(first);
     }
 
-    public T dequeue(int index) {
+
+    private T _dequeue(int index) {
         if (total == 0) {
             throw new NoSuchElementException();
         }
@@ -74,6 +68,10 @@ public class Queue<T> {
         return item;
     }
 
+    public T dequeue(int index) {
+        return _dequeue(index);
+    }
+
     public boolean isEmpty() {
         return total == 0;
     }
@@ -82,10 +80,28 @@ public class Queue<T> {
         return total;
     }
 
-
     @Override
-    public String toString() {
-        return Arrays.toString(collection);
+    public Iterator<T> iterator() {
+        Iterator<T> iterator = new Iterator<T>() {
+            private int current = first;
+
+            @Override
+            public boolean hasNext() {
+                return current < total;
+            }
+
+            @Override
+            public T next() {
+                if (current >= total) {
+                    throw new NoSuchElementException();
+                }
+
+                T tmp = collection[current];
+                current++;
+                return tmp;
+            }
+        };
+        return iterator;
     }
 
 }

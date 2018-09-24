@@ -1,6 +1,9 @@
 package com.pluralsight.algo.sorting.quick;
 
 
+import java.util.Arrays;
+import java.util.Random;
+
 /**
  * Quick sort is pretty fast and efficient
  * Randomised quick sort always gives us the best efficiency
@@ -10,34 +13,60 @@ package com.pluralsight.algo.sorting.quick;
  */
 public class QuickSort {
     public static void sort(Object[] a) {
-        final int length = a.length;
-
-        if (length == 1) {
-            return;
-        }
-        final Integer start = 0;
-        final Integer end = a.length - 1;
-        final Integer partitionIndex = partition(a, start, end);
-
-
-
+        a = QuickSort.shuffle(a);
+        sort(a, 0, a.length - 1);
     }
 
-    private static Integer partition(Object[] a, Integer startIndex, Integer endIndex) {
+    private static void sort(Object[] a, int start, int end) {
+        System.out.println("Current proccesssd array " + Arrays.toString(a));
+        System.out.println("start " + start);
+        System.out.println("end " + end);
+        if (end <= start) return;
+        int j = partition(a, start, end);
+        sort(a, start, j - 1);
+        sort(a, j + 1, end);
+    }
 
-        final Integer pivot = (int) a[endIndex];
-        Integer partitionIndex = startIndex;
+    private static Integer partition(Object[] a, Integer start, Integer end) {
+        int i = start;
+        int j = end + 1;
 
-        for (int i = startIndex; i <= a.length; i++) {
-            final Integer currentItem = (int) a[i];
-            if (currentItem <= pivot) {
-                swap(a, i, partitionIndex);
-                partitionIndex++;
+        while (true) {
+            while (isLessThan(a[++i], a[start])) {
+                System.out.println("currentItem " + i);
+                if (i == end) break; //find item on the left and swap it
             }
+
+            while (isLessThan(a[start], a[--j])) {
+                if (j == start) break; // find the item on right to swap
+            }
+
+            if (i >= j) break;
+            swap(a, i, j);
         }
 
-        swap(a, partitionIndex, endIndex);
-        return partitionIndex;
+        swap(a, start, j);
+        return j;
+    }
+
+    public static boolean isLessThan(Object a, Object b) {
+        return (int) a < (int) b;
+    }
+
+    public static Object[] shuffle(Object[] a) {
+        int index;
+        Object temp;
+        final Random random = new Random();
+
+        for (int i = a.length - 1; i > 0; i--) {
+            index = random.nextInt(i + 1);
+            if (index != i) {
+                temp = a[index];
+                a[index] = a[i];
+                a[i] = temp;
+            }
+        }
+        return a;
     }
 
     private static void swap(Object[] a, Integer leftIndex, Integer rightIndex) {
