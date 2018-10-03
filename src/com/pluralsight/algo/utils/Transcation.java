@@ -1,25 +1,43 @@
 package com.pluralsight.algo.utils;
 
 
+import org.jetbrains.annotations.NotNull;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Transcation {
+public class Transcation implements Comparable<Transcation> {
 
     private String who;
     private Date when;
     private double amount;
 
-    Transcation(String transcation) {
-        String split[] = transcation.split(" ");
+    public Transcation(String transcation) {
+        String split[] = transcation.split("\\s+");
         who = split[0];
         try {
             when = new SimpleDateFormat("m/dd/yyyy").parse(split[1]);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        amount = Double.parseDouble(split[0]);
+        amount = Double.parseDouble(split[2]);
+    }
+
+    @Override
+    public String toString() {
+        return "\r\n{" +
+                "who: " + who + ", "
+                + "when " + when + ", "
+                + "amount " + amount + "" +
+                "}" + "\r\n";
+    }
+
+    @Override
+    public int compareTo(@NotNull Transcation o) {
+        if (this.getAmount() < o.getAmount()) return -1;
+        if (this.getAmount() > o.getAmount()) return 1;
+        return 0;
     }
 
     public static abstract class WhoOrder implements Comparable<Transcation> {

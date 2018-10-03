@@ -8,7 +8,6 @@ public class UnionFind implements com.pluralsight.algo.interfaces.UnionFind {
     public UnionFind(int N) {
         count = N;
         id = new int[N];
-
         for (int i = 0; i < N; i++) {
             id[i] = i;
         }
@@ -25,6 +24,7 @@ public class UnionFind implements com.pluralsight.algo.interfaces.UnionFind {
 
         for(int i = 0; i < id.length; i++){
             if(id[i] == pID) {
+                System.out.println("Putting " + qID + " in " + id[i]);
                 id[i] = qID;
             }
         }

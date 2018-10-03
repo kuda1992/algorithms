@@ -23,7 +23,6 @@ class ReadFileTest {
 
     @Test
     void shouldReturnIfTheFileHasANextLine() {
-
         assertTrue(readFile.hasNextLine());
     }
 
