@@ -4,8 +4,8 @@ import java.util.Arrays;
 
 public class QuickUnion {
 
-    private int[] id;
-    private int count;
+    protected int[] id;
+    protected int count;
 
     public QuickUnion(int N) {
         count = N;
