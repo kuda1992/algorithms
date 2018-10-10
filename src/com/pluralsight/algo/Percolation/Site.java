@@ -4,11 +4,13 @@ public class Site {
     private int x;
     private int y;
     private boolean isOpen;
+    private int value;
 
-    public Site(int x, int y, boolean isOpen) {
+    public Site(int x, int y, boolean isOpen, int value) {
         this.setX(x);
         this.setY(y);
         this.setOpen(isOpen);
+        this.setValue(value);
     }
 
     public int getX() {
@@ -37,13 +39,21 @@ public class Site {
 
     @Override
     public String toString() {
-        return "x: " + this.getX() + " , y: " + this.getY() + " , isOpen: " + this.isOpen();
+        return "x: " + this.getX() + " , y: " + this.getY() + " , isOpen: " + this.isOpen() + " , value: " + this.getValue();
     }
 
-    public boolean compareTo(Site site) {
-        if (this.getX() == site.getX() && this.getY() == site.getY()) {
+    public boolean compareTo(int x, int y) {
+        if (this.getX() == x && this.getY() == y) {
             return true;
         }
         return false;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
     }
 }

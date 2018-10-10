@@ -1,6 +1,6 @@
 package com.pluralsight.algo.Percolation;
 
-import com.pluralsight.algo.UnionFind.WeightedQuickUnion;
+import com.pluralsight.algo.UnionFind.WeightedQuickUnionImpl;
 
 import java.util.Arrays;
 import java.util.NoSuchElementException;
@@ -10,51 +10,60 @@ public class PercolationImpl implements Percolation {
 
     private int size;
     private Site[][] grid;
-    private WeightedQuickUnion weightedQuickUnion;
+    private WeightedQuickUnionImpl weightedQuickUnion;
 
     public PercolationImpl(int numberOfSites) {
         this.setSize(numberOfSites);
         grid = new Site[numberOfSites][numberOfSites];
-        weightedQuickUnion = new WeightedQuickUnion(numberOfSites * numberOfSites);
+        int value = 0;
+        weightedQuickUnion = new WeightedQuickUnionImpl(numberOfSites * numberOfSites);
         for (int i = 0; i < numberOfSites; i++) {
             for (int j = 0; j < numberOfSites; j++) {
-                final Site site = new Site(i, j, false);
-                grid[i][j] = site;
+                grid[i][j] = new Site(i, j, false, value);
+                value++;
             }
         }
     }
 
     @Override
-    public void open(Site site) {
-        Position position = findPosition(site);
+    public void open(int x, int y) {
+        Position position = findPosition(x, y);
+        final Site site = grid[position.getX()][position.getY()];
+        site.setOpen(true);
         grid[position.getX()][position.getY()] = site;
         System.out.println("Opening x: " + site.getX() + ", y: " + site.getY());
 
         if (isLeftSiteOpen(site)) {
             System.out.println("joining the site with the left site");
-            weightedQuickUnion.union(site.getX(), site.getX() - 1);
+            weightedQuickUnion.union(site.getValue(), getSiteValue(site.getX(), site.getX() - 1));
         }
         if (isRighSiteOpen(site)) {
             System.out.println("joining the site with the right site");
-            weightedQuickUnion.union(site.getX(), site.getX() + 1);
+            weightedQuickUnion.union(site.getValue(), getSiteValue(site.getX(), site.getX() + 1));
         }
 
         if (isTopSiteOpen(site)) {
             System.out.println("joining the site with the top site");
-            weightedQuickUnion.union(site.getY(), site.getY() - 1);
+            weightedQuickUnion.union(site.getValue(), getSiteValue(site.getY(), site.getY() - 1));
         }
 
         if (isBottomSiteOpen(site)) {
             System.out.println("joining the site with the bottom site");
-            weightedQuickUnion.union(site.getY(), site.getY() + 1);
+            weightedQuickUnion.union(site.getValue(), getSiteValue(site.getY(), site.getY() + 1));
         }
     }
 
-    private Position findPosition(Site site) throws NoSuchElementException {
+    private int getSiteValue(int x, int y) {
+        Position position = findPosition(x, y);
+        final Site site = grid[position.getX()][position.getY()];
+        return site.getValue();
+    }
+
+    private Position findPosition(int x, int y) throws NoSuchElementException {
         for (int i = 0; i < this.getSize(); i++) {
             for (int j = 0; j < this.getSize(); j++) {
                 final Site siteInGrid = grid[i][j];
-                if (site.compareTo(siteInGrid)) {
+                if (siteInGrid.getX() == x && siteInGrid.getY() == y) {
                     return new Position(i, j);
                 }
             }
@@ -64,30 +73,30 @@ public class PercolationImpl implements Percolation {
     }
 
     private boolean isLeftSiteOpen(Site site) {
-        Site leftSite = new Site(site.getX(), site.getY(), site.isOpen());
+        Site leftSite = new Site(site.getX(), site.getY(), site.isOpen(), site.getValue());
         if (site.getX() > 0) {
             leftSite.setX(site.getX() - 1);
-            Position position = findPosition(leftSite);
+            Position position = findPosition(leftSite.getX(), leftSite.getY());
             return grid[position.getX()][position.getY()].isOpen();
         }
         return false;
     }
 
     private boolean isRighSiteOpen(Site site) {
-        Site rightSite = new Site(site.getX(), site.getY(), site.isOpen());
+        Site rightSite = new Site(site.getX(), site.getY(), site.isOpen(), site.getValue());
         if (site.getX() < this.getSize() - 1) {
             rightSite.setX(site.getX() + 1);
-            Position position = findPosition(rightSite);
+            Position position = findPosition(rightSite.getX(), rightSite.getY());
             return grid[position.getX()][position.getY()].isOpen();
         }
         return false;
     }
 
     private boolean isTopSiteOpen(Site site) {
-        Site topSite = new Site(site.getX(), site.getY(), site.isOpen());
+        Site topSite = new Site(site.getX(), site.getY(), site.isOpen(), site.getValue());
         if (site.getY() > 0) {
             topSite.setY(site.getY() - 1);
-            Position position = findPosition(topSite);
+            Position position = findPosition(topSite.getX(), topSite.getY());
             return grid[position.getX()][position.getY()].isOpen();
         }
         return false;
@@ -95,10 +104,10 @@ public class PercolationImpl implements Percolation {
 
 
     private boolean isBottomSiteOpen(Site site) {
-        Site bottomSite = new Site(site.getX(), site.getY(), site.isOpen());
+        Site bottomSite = new Site(site.getX(), site.getY(), site.isOpen(), site.getValue());
         if (site.getY() < this.getSize() - 1) {
             bottomSite.setY(site.getY() + 1);
-            Position position = findPosition(bottomSite);
+            Position position = findPosition(bottomSite.getX(), bottomSite.getY());
             return grid[position.getX()][position.getY()].isOpen();
         }
         return false;
@@ -153,7 +162,12 @@ public class PercolationImpl implements Percolation {
 
     @Override
     public boolean percolates() {
-        return weightedQuickUnion.connected(0, (this.getSize() * this.getSize()) - 1);
+        for (int i = 0; i < this.getSize(); i++) {
+            for (int j = (this.getSize() * this.getSize() - this.getSize()); j < this.getSize() * this.getSize(); i++) {
+                if (weightedQuickUnion.connected(i, j)) return true;
+            }
+        }
+        return false;
     }
 
     @Override

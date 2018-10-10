@@ -2,7 +2,7 @@ package com.pluralsight.algo.Percolation;
 
 public interface Percolation {
 
-    public void open(Site site);
+    public void open(int x, int y);
 
     public boolean isOpen(Site site);
 

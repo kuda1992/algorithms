@@ -27,10 +27,10 @@ class PercolationImplTest {
     void shouldNotPercolate() {
 
         final PercolationImpl percolation = new PercolationImpl(3);
-        percolation.open(new Site(0, 0, true));
-        percolation.open(new Site(1, 2, true));
-        percolation.open(new Site(0, 2, true));
-        percolation.open(new Site(2, 1, true));
+        percolation.open(0, 0);
+        percolation.open(1, 2);
+        percolation.open(0, 2);
+        percolation.open(2, 1);
         System.out.println("Grid => " + percolation.toString());
         assertFalse(percolation.percolates());
 
@@ -40,14 +40,15 @@ class PercolationImplTest {
     void shouldPercolate() {
 
         final PercolationImpl percolation = new PercolationImpl(3);
-        percolation.open(new Site(0, 0, true));
-        percolation.open(new Site(1, 2, true));
-        percolation.open(new Site(0, 2, true));
-        percolation.open(new Site(2, 1, true));
-        percolation.open(new Site(1, 1, true));
-        percolation.open(new Site(0, 1, true));
-        percolation.open(new Site(1, 0, true));
-        percolation.open(new Site(2, 2, true));
+        percolation.open(0, 0);
+        percolation.open(1, 2);
+        percolation.open(0, 2);
+        percolation.open(2, 1);
+        percolation.open(1, 1);
+        percolation.open(0, 1);
+        percolation.open(1, 0);
+        percolation.open(2, 2);
+        percolation.open(2, 1);
         System.out.println("Grid => " + percolation.toString());
         System.out.println("The number of open sites => " + percolation.toString());
         assertTrue(percolation.percolates());

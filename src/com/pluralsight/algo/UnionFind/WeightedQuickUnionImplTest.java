@@ -4,9 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class WeightedQuickUnionTest {
+class WeightedQuickUnionImplTest {
 
-    private WeightedQuickUnion weightedQuickUnion = new WeightedQuickUnion(10);
+    private WeightedQuickUnionImpl weightedQuickUnion = new WeightedQuickUnionImpl(10);
 
     @Test
     void shouldHaveThreeSets() {
@@ -19,7 +19,8 @@ class WeightedQuickUnionTest {
         weightedQuickUnion.union(7,8);
         System.out.println(weightedQuickUnion.toString());
 
-        assertEquals(3, weightedQuickUnion.getCount());
-
+        assertEquals(4, weightedQuickUnion.getCount());
     }
+
+
 }
