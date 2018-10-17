@@ -163,7 +163,7 @@ public class PercolationImpl implements Percolation {
     @Override
     public boolean percolates() {
         for (int i = 0; i < this.getSize(); i++) {
-            for (int j = (this.getSize() * this.getSize() - this.getSize()); j < this.getSize() * this.getSize(); i++) {
+            for (int j = (this.getSize() * this.getSize() - this.getSize()); j < this.getSize() * this.getSize(); j++) {
                 if (weightedQuickUnion.connected(i, j)) return true;
             }
         }

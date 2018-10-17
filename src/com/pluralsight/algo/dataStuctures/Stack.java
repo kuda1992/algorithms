@@ -5,7 +5,11 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Stack<T> implements Iterable<T> {
-    private List<T> collection = new ArrayList<>();
+    private List<T> collection;
+
+    public Stack() {
+        collection = new ArrayList<>();
+    }
 
     public void push(T item) {
         collection.add(item);
@@ -29,6 +33,10 @@ public class Stack<T> implements Iterable<T> {
 
     public int size() {
         return collection.size();
+    }
+
+    public String toString () {
+        return collection.toString();
     }
 
     @Override

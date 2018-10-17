@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Iterator;
 
 import static junit.framework.TestCase.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class BagTest {
 
@@ -53,7 +54,7 @@ class BagTest {
         while (iterator.hasNext()) {
             System.out.println(iterator.next());
         }
-        assertTrue(true);
+        assertFalse(iterator.hasNext());
     }
 
     @Test

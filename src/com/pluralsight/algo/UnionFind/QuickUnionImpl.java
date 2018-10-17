@@ -6,6 +6,7 @@ public class QuickUnionImpl implements QuickUnion {
 
     protected int[] id;
     protected int count;
+    public int num = 0;
 
     public QuickUnionImpl(int N) {
         count = N;

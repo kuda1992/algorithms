@@ -16,7 +16,6 @@ class PercolationImplTest {
 
         System.out.println("The number of open sites => " + percolation.numberOfOpenSites());
 
-
         System.out.println("Open random site => " + percolation.openRandomSite());
 
         System.out.println("The number of open sites => " + percolation.numberOfOpenSites());
