@@ -8,12 +8,12 @@ public class LinkedList<T> implements Iterable<T> {
     private Node<T> head;
     private int numNodes;
 
-    LinkedList(T item) {
+    public LinkedList(T item) {
         head = new Node<>(item);
         numNodes++;
     }
 
-    LinkedList() {
+    public LinkedList() {
     }
 
     public Node<T> addAtHead(T item) {
@@ -75,11 +75,11 @@ public class LinkedList<T> implements Iterable<T> {
         numNodes--;
     }
 
-    public int find(T nodeItem) {
+    public int findIndex(T nodeItem) {
         Node<T> current = head;
         int index = 0;
 
-        while (!current.equals(nodeItem)) {
+        while (current != null && !current.equals(nodeItem)) {
             index++;
             current = current.getNext();
         }

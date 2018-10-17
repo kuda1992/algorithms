@@ -117,8 +117,8 @@ class LinkedListTest {
         Node<String> ropa = linkedList.addAtTail("ropa");
 
 
-        assertEquals(linkedList.find("aggay"), 0);
-        assertEquals(linkedList.find("martina"), 1);
+        assertEquals(linkedList.findIndex("aggay"), 0);
+        assertEquals(linkedList.findIndex("martina"), 1);
 
         System.out.println("<<<<<<<<<<<<<<<End>>>>>>>>>>>>>>>");
     }

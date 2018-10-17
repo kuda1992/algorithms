@@ -16,7 +16,7 @@ public class ExpressionEvaluation {
 
     public double evaluate() {
         for (char c : expression.toCharArray()) {
-            String charAsString = convertCharToString(c);
+            String charAsString = ExpressionEvaluation.convertCharToString(c);
             if (isOpenBracket(charAsString)) {
                 continue;
             }
@@ -95,7 +95,7 @@ public class ExpressionEvaluation {
         return s.equals("*");
     }
 
-    private String convertCharToString(char c) {
+    private static String convertCharToString(char c) {
         return String.valueOf(c);
     }
 

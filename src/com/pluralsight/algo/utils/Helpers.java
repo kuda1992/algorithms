@@ -24,4 +24,18 @@ public class Helpers {
         }
         return integers;
     }
+
+    public static char randomCharacter() {
+        String alphabet = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ?/.,";
+        Random rnd = new Random();
+        return alphabet.charAt(rnd.nextInt(alphabet.length()));
+    }
+
+    public static char[] randomCharacters(int length) {
+        char[] characters = new char[length];
+        for(int i = 0; i < length; i++) {
+            characters[i]= Helpers.randomCharacter();
+        }
+        return characters;
+    }
 }
